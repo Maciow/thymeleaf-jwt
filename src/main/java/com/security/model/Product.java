@@ -4,29 +4,39 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
+@Table(name = "products")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class Permission implements Serializable {
+public class Product implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_permission")
+    @Column(name = "id_product")
     private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String permission;
+    @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
+    private String brand;
+    private String description;
+    private BigDecimal price;
+    @Column(name = "available_quantity")
+    private int availableQuantity;
+    @Column(name = "img_url")
+    private String imageUrl;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Permission that = (Permission) o;
-        return Objects.equals(id, that.id);
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
     }
 
     @Override

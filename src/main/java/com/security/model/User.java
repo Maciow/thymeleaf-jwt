@@ -3,6 +3,8 @@ package com.security.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -11,7 +13,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +40,20 @@ public class User {
             inverseJoinColumns= {@JoinColumn(name = "permission_id", referencedColumnName = "id_permission")})
     private Set<Permission> permissions;
 
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "user_id", referencedColumnName = "id_user")
+    private Set<Order> orders;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

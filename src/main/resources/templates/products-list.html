@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+    <header th:insert="fragments.html :: nav"></header>
+    <div class="container">
+        <main>
+            <article>
+                <header>
+                    <h2 th:text="|Category: ${categoryName}|"></h2>
+                </header>
+                <div th:each="product: ${products}" th:object="${product}">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img th:id="|prodImgUrl*{id}|" th:src="*{imageUrl}" class="card-img">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 th:id="|prodName*{id}|" class="card-title" th:text="*{name}"></h5>
+                                    <h6 th:id="|prodBrand*{id}|" class="card-title" th:text="*{brand}"></h6>
+                                    <p th:id="|prodPrice*{id}|" class="font-weight-bold text-danger" th:text="*{price}"></p>
+                                    <p th:id="|prodDesc*{id}|" class="card-text" th:text="*{description}"></p>
+                                    <button type="button" class="btn btn-dark" th:data-id="*{id}" onclick="addToCart(this.getAttribute('data-id'))">
+                                        <i class="fa fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+    <script th:src="@{js/shopping-cart.js}"></script>
+</body>
+</html>
