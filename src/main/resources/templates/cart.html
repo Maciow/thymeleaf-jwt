@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<div class="container">
+    <main>
+        <div th:if="not ${products.isEmpty()}">
+            <div class="alert alert-warning" th:if="${productsException}" th:text="${productsException}"></div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product, index: ${products.entrySet()}">
+                        <th scope="row" th:text="${index.index+1}"></th>
+                        <td><img class="cart-picture" th:src="${product.getKey().getImageUrl()}"></td>
+                        <td th:text="|${product.getKey().getBrand()} ${product.getKey().getName()}|"></td>
+                        <td th:text="${product.getKey().getDescription()}"></td>
+                        <td>
+                            <a th:href="@{'/add-to-cart?id='+${product.getKey().getId()}}">
+                                <i class="far fa-plus-square text-dark"></i>
+                            </a>
+                            <div th:text="${product.getValue()}"></div>
+                            <a th:href="@{'/reduce-amount?id='+${product.getKey().getId()}}">
+                                <i class="far fa-minus-square text-dark"></i>
+                            </a>
+                        </td>
+                        <td th:text="|${product.getKey().getPrice()} #{cart.currency}|"></td>
+                        <td>
+                            <a th:href="@{'/remove-from-cart?id='+${product.getKey().getId()}}">
+                                <i class="fa fa-times text-danger bigger-icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="card">
+                <div class="card-body">
+                    <div th:text="|#{cart.total}: ${total} #{cart.currency}|" class="font-weight-bold"></div>
+                    <form method="post" th:action="@{/checkout}">
+                        <button class="btn btn-success btn-lg" type="submit" th:text="#{cart.checkout}"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

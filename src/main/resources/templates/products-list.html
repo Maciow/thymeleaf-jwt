@@ -17,13 +17,13 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 th:id="|prodName*{id}|" class="card-title" th:text="*{name}"></h5>
-                                    <h6 th:id="|prodBrand*{id}|" class="card-title" th:text="*{brand}"></h6>
-                                    <p th:id="|prodPrice*{id}|" class="font-weight-bold text-danger" th:text="*{price}"></p>
-                                    <p th:id="|prodDesc*{id}|" class="card-text" th:text="*{description}"></p>
-                                    <button type="button" class="btn btn-dark" th:data-id="*{id}" onclick="addToCart(this.getAttribute('data-id'))">
-                                        <i class="fa fa-cart-plus"></i>
-                                    </button>
+                                    <h5 class="card-title" th:text="*{name}"></h5>
+                                    <h6 class="card-title" th:text="*{brand}"></h6>
+                                    <p  class="font-weight-bold text-danger" th:text="*{price}"></p>
+                                    <p class="card-text" th:text="*{description}"></p>
+                                    <a th:href="@{'/add-to-cart?id='+${product.id}}">
+                                        <i class="fa fa-cart-plus text-dark bigger-icon"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>

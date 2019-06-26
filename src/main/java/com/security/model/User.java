@@ -40,8 +40,7 @@ public class User implements Serializable {
             inverseJoinColumns= {@JoinColumn(name = "permission_id", referencedColumnName = "id_permission")})
     private Set<Permission> permissions;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @JoinColumn(name = "user_id", referencedColumnName = "id_user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Order> orders;
 
     @Override

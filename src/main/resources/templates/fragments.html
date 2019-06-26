@@ -3,8 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:fragment="headerfiles">
     <meta charset="UTF-8">
-    <title>Introduction to Springboot Security</title>
+    <title>Shop online</title>
     <link th:href="@{~/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{~/style.css}" rel="stylesheet">
     <link th:href="@{~/fontawesome/css/all.css}" rel="stylesheet">
 </head>
 <body>
@@ -24,6 +25,12 @@
                 </li>
                 <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" class="nav-item">
                     <a class="nav-link" href="#" th:href="@{~/management/index}">Management</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{~/products}">Products</a>
+                </li>
+                <li>
+                    <a class="nav-link" th:href="@{~/cart}">Cart</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/logout}">

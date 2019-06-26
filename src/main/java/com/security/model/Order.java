@@ -26,11 +26,14 @@ public class Order implements Serializable {
     @MapKeyColumn(name = "products")
     @Column(name = "quantity")
     private Map<Long, Integer> products;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name = "order_state")
     @Enumerated(EnumType.STRING)
     private OrderState orderState;
 
-    enum OrderState {
+    public enum OrderState {
         CANCELED, PENDING, APPROVED, ON_THE_WAY, DELIVERED
     }
 
